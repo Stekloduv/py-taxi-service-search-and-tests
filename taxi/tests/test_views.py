@@ -93,7 +93,7 @@ class CarTest(TestCase):
             reverse("taxi:car-create"),
             {
                 "model": "test_model",
-                "drivers": [self.user.id],  # Список водіїв
+                "drivers": [self.user.id],
                 "manufacturer": self.manufacturer.id
             }
         )

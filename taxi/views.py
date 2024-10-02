@@ -53,7 +53,9 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
         queryset = Manufacturer.objects.all()
         form = ManufacturerSearchForm(self.request.GET)
         if form.is_valid():
-            queryset = queryset.filter(name__icontains=form.cleaned_data["name"])
+            queryset = queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
         return queryset
 
 
@@ -90,7 +92,9 @@ class CarListView(LoginRequiredMixin, generic.ListView):
         queryset = Car.objects.select_related("manufacturer")
         form = CarSearchForm(self.request.GET)
         if form.is_valid():
-            queryset = queryset.filter(model__icontains=form.cleaned_data["model"])
+            queryset = queryset.filter(
+                model__icontains=form.cleaned_data["model"]
+            )
         return queryset
 
 
@@ -131,7 +135,9 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
         queryset = Driver.objects.all()
         form = DriverSearchForm(self.request.GET)
         if form.is_valid():
-            queryset = queryset.filter(username__icontains=form.cleaned_data["username"])
+            queryset = queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
         return queryset
 
 
@@ -161,8 +167,10 @@ def toggle_assign_to_car(request, pk):
     driver = Driver.objects.get(id=request.user.id)
     if (
         Car.objects.get(id=pk) in driver.cars.all()
-    ):  # probably could check if car exists
+    ):
         driver.cars.remove(pk)
     else:
         driver.cars.add(pk)
-    return HttpResponseRedirect(reverse_lazy("taxi:car-detail", args=[pk]))
+    return HttpResponseRedirect(reverse_lazy(
+        "taxi:car-detail", args=[pk]
+    ))
