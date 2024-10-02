@@ -18,7 +18,11 @@ class ModelTests(TestCase):
             first_name="test_first_name",
             last_name="test_last_name",
         )
-        self.assertEqual(str(driver), f"{driver.username} ({driver.first_name} {driver.last_name})")
+        self.assertEqual(
+            str(driver),
+            f"{driver.username} "
+            f"({driver.first_name} "
+            f"{driver.last_name})")
 
     def test_driver_root_address(self):
         driver = get_user_model().objects.create(
